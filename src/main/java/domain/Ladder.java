@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Ladder {
     private final List<Line> lines;
-    private final RandomLadderGenerator randomLadderGenerator = new RandomLadderGenerator();
+    private final RandomLadderGeneratorImpl randomLadderGenerator = new RandomLadderGeneratorImpl();
 
     public Ladder(int lineHeight, int ladderWidth) {
         List<Line> lines = randomLadderGenerator.generateLadder(lineHeight, ladderWidth);

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
-public class RandomLadderGenerator {
+public class RandomLadderGeneratorImpl {
     private final ThreadLocalRandom random = ThreadLocalRandom.current();
     private static final int RANDOM_BOUND = 10;
 
