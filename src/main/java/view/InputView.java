@@ -34,6 +34,10 @@ public class InputView {
     }
 
     public int readLadderHeight() {
-        return scanner.nextInt();
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public String readPersonName() {
+        return scanner.nextLine();
     }
 }
