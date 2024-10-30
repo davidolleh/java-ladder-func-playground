@@ -4,10 +4,12 @@ import java.util.List;
 
 public class Ladder {
     private final List<Line> lines;
-    private final RandomLadderGeneratorImpl randomLadderGenerator = new RandomLadderGeneratorImpl();
+    private final RandomLadderGenerator randomLadderGenerator;
 
-    public Ladder(int lineHeight, int ladderWidth) {
-        List<Line> lines = randomLadderGenerator.generateLadder(lineHeight, ladderWidth);
+    public Ladder(int lineHeight, int ladderWidth, RandomLadderGenerator randomLadderGenerator) {
+        this.randomLadderGenerator = randomLadderGenerator;
+
+        List<Line> lines = this.randomLadderGenerator.generateLadder(lineHeight, ladderWidth);
         checkLadderValidation(lineHeight, lines);
         this.lines = lines;
     }
