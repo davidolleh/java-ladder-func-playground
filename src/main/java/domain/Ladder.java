@@ -4,13 +4,18 @@ import java.util.List;
 
 public class Ladder {
     private final List<Line> lines;
+    private final int ladderWidth;
+    private final int lineHeight;
     private final RandomLadderGenerator randomLadderGenerator;
+
 
     public Ladder(int lineHeight, int ladderWidth, RandomLadderGenerator randomLadderGenerator) {
         this.randomLadderGenerator = randomLadderGenerator;
+        this.ladderWidth = ladderWidth;
+        this.lineHeight = lineHeight;
 
         List<Line> lines = this.randomLadderGenerator.generateLadder(lineHeight, ladderWidth);
-        checkLadderValidation(lineHeight, lines);
+        checkLadderValidation(lines);
         this.lines = lines;
     }
 
@@ -18,7 +23,15 @@ public class Ladder {
         return lines;
     }
 
-    private void checkLadderValidation(int lineHeight, List<Line> lines) {
+    public int getLadderWidth() {
+        return ladderWidth;
+    }
+
+    public int getLineHeight() {
+        return lineHeight;
+    }
+
+    private void checkLadderValidation(List<Line> lines) {
         for (int i = 0; i < lineHeight; i++) {
             checkRowValidation(i, lines);
         }
