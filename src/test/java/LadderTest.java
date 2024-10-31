@@ -13,7 +13,7 @@ public class LadderTest {
         int ladderWidth = 4;
 
         Assertions.assertThrows(RuntimeException.class, () -> {
-            Ladder ladder = new Ladder(
+            new Ladder(
                     lineHeight,
                     ladderWidth,
                     new MockRandomLadderGenerator.AbnormalLadderGenerator()
@@ -28,7 +28,7 @@ public class LadderTest {
 
 
         Assertions.assertDoesNotThrow(() -> {
-            Ladder ladder = new Ladder(
+            new Ladder(
                     lineHeight,
                     ladderWidth,
                     new MockRandomLadderGenerator.NormalLadderGenerator()
