@@ -29,8 +29,6 @@ public class InputView {
                     return new Prize(Integer.parseInt(p));
                 })
                 .toList();
-
-
     }
 
     public int readLadderHeight() {

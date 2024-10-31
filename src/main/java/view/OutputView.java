@@ -3,6 +3,7 @@ package view;
 import domain.*;
 
 import java.util.List;
+import java.util.Map;
 
 public class OutputView {
     public void printEmptyLine() {
@@ -68,7 +69,19 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printPersonPrizeResult() {
+    public void printParticipantPrizeInquiry() {
+        System.out.println("결과를 보고 싶은 사람은?");
+    }
 
+    public void printParticipantPrizeResult(Prize prize) {
+        System.out.println("실행 결과");
+        System.out.println(prize.costToString() + "\n");
+    }
+
+    public void printParticipantsPrizesResult(Map<Person, Prize> participantsPrizes, List<Person> participants) {
+        System.out.println("실행 결과");
+        for (Person participant : participants) {
+            System.out.println(participant.getName() + " : " + participantsPrizes.get(participant).costToString());
+        }
     }
 }
