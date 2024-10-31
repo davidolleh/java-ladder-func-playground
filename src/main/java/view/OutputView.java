@@ -30,6 +30,8 @@ public class OutputView {
         printLadderResult(ladder);
 
         printPrizesResult(prizes);
+
+        printEmptyLine();
     }
 
     private void printParticipantsResult(List<Person> participants) {
