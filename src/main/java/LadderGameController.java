@@ -17,20 +17,16 @@ public class LadderGameController {
     public void ladderGame() {
         List<Person> participants = readParticipants();
         List<Prize> prizes = readPrizes();
-        if (participants.size() != prizes.size()) {
-            throw new IllegalArgumentException("The number of participants does not match the number of prizes.");
-        }
+
+        checkPrizeCountValidation(participants.size(), prizes.size());
 
         int height = readLadderHeight();
 
         Ladder ladder = new Ladder(height, participants.size(), new RandomLadderGeneratorImpl());
-//        Map<Person, Prize> participantPrizes = Statistic.statisticResult(ladder, participants, prizes);
 
         outputView.printResult(participants, ladder, prizes);
-        outputView.printEmptyLine();
 
         Statistic statistic = new Statistic(ladder, participants, prizes);
-
 
         while(true) {
             String name = readParticipantName();
@@ -78,6 +74,12 @@ public class LadderGameController {
         outputView.printEmptyLine();
 
         return name;
+    }
+
+    private void checkPrizeCountValidation(int participantCount, int prizeCount) {
+        if (participantCount != prizeCount) {
+            throw new IllegalArgumentException("The number of participants does not match the number of prizes.");
+        }
     }
 
     private void checkParticipantValidation(List<Person> participants, Person person) {
