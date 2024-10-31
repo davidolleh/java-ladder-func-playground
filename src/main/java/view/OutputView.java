@@ -23,7 +23,7 @@ public class OutputView {
     }
 
     public void printResult(List<Person> participants, Ladder ladder, List<Prize> prizes) {
-        System.out.println("사다리 결과");
+        System.out.println("사다리 결과\n");
 
         printParticipantsResult(participants);
 
@@ -48,16 +48,25 @@ public class OutputView {
 
         for (int i = 0; i < lineHeight; i++) {
             System.out.print("    ");
-            for (int j = 0; j < ladderWidth; j++) {
-                Direction direction = lines.get(j).getPoints().get(i);
-                if (direction == Direction.RIGHT) {
-                    System.out.print("|-----");
-                } else {
-                    System.out.print("|     ");
-                }
-            }
+            printLadderRowResult(lines, ladderWidth, i);
             System.out.println();
         }
+    }
+
+    private void printLadderRowResult(List<Line> lines, int ladderWidth, int columnIndex) {
+        for (int j = 0; j < ladderWidth; j++) {
+            Direction direction = lines.get(j).getPoints().get(columnIndex);
+            printByDirection(direction);
+        }
+    }
+
+    private void printByDirection(Direction direction) {
+        if (direction == Direction.RIGHT) {
+            System.out.print("|-----");
+            return;
+        }
+
+        System.out.print("|     ");
     }
 
     private void printPrizesResult(List<Prize> prizes) {
