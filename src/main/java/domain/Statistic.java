@@ -41,12 +41,14 @@ public class Statistic {
     }
 
     private int changeColumnIndexByDirection(Direction direction, int columnIndex) {
+        int tmp = columnIndex;
+
         if (direction == Direction.RIGHT)
-            return ++columnIndex;
+            return ++tmp;
 
         if (direction == Direction.LEFT)
-            return --columnIndex;
+            return --tmp;
 
-        return columnIndex;
+        return tmp;
     }
 }
