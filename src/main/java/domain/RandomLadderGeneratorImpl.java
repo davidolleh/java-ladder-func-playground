@@ -49,7 +49,6 @@ public class RandomLadderGeneratorImpl implements RandomLadderGenerator {
             return Connection.UNCONNECTED;
 
         int randomValue = random.nextInt(RANDOM_BOUND);
-
         if (randomValue < 5)
             return Connection.CONNECTED;
 
@@ -69,27 +68,30 @@ public class RandomLadderGeneratorImpl implements RandomLadderGenerator {
 
         List<Connection> lineLeftConnections = columnRowConnections.get(lineIndex - 1);
         List<Connection> lineRightConnections = columnRowConnections.get(lineIndex);
+
         return generateMiddlesLine(lineHeight, lineLeftConnections, lineRightConnections);
     }
 
     private Line generateFirstLine(List<Connection> lineRightConnections) {
-        List<Direction> lineDirections = lineRightConnections.stream().map(c -> {
-            if (c == Connection.CONNECTED)
-                return Direction.RIGHT;
-
-            return Direction.DOWN;
-        }).toList();
+        List<Direction> lineDirections = lineRightConnections.stream()
+                .map(c -> {
+                    if (c == Connection.CONNECTED)
+                        return Direction.RIGHT;
+                    return Direction.DOWN;
+                })
+                .toList();
 
         return new Line(lineDirections);
     }
 
     private Line generateLastLine(List<Connection> lineLeftConnections) {
-        List<Direction> lineDirections = lineLeftConnections.stream().map(c -> {
-            if (c == Connection.CONNECTED)
-                return Direction.LEFT;
-
-            return Direction.DOWN;
-        }).toList();
+        List<Direction> lineDirections = lineLeftConnections.stream()
+                .map(c -> {
+                    if (c == Connection.CONNECTED)
+                        return Direction.LEFT;
+                    return Direction.DOWN;
+                })
+                .toList();
 
         return new Line(lineDirections);
     }
@@ -98,7 +100,6 @@ public class RandomLadderGeneratorImpl implements RandomLadderGenerator {
         List<Direction> lineDirections = new ArrayList<>();
 
         for (int j = 0; j < lineHeight; j++) {
-
             if (lineLeftConnections.get(j) == Connection.UNCONNECTED && lineRightConnections.get(j) == Connection.UNCONNECTED) {
                 lineDirections.add(Direction.DOWN);
                 continue;

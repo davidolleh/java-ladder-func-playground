@@ -28,18 +28,7 @@ public class LadderGameController {
 
         Statistic statistic = new Statistic(ladder, participants, prizes);
 
-        while(true) {
-            String name = readParticipantName();
-
-            if (name.equals("all")) {
-                break;
-            }
-
-            Person person = new Person(name);
-            checkParticipantValidation(participants, person);
-            outputView.printParticipantPrizeResult(statistic.getParticipantPrize(person));
-        }
-
+        printSpecificParticipantResult(statistic, participants);
 
         outputView.printParticipantsPrizesResult(statistic.getParticipantPrize(), participants);
     }
@@ -74,6 +63,20 @@ public class LadderGameController {
         outputView.printEmptyLine();
 
         return name;
+    }
+
+    private void printSpecificParticipantResult(Statistic statistic, List<Person> participants) {
+        while(true) {
+            String name = readParticipantName();
+
+            if (name.equals("all")) {
+                break;
+            }
+
+            Person person = new Person(name);
+            checkParticipantValidation(participants, person);
+            outputView.printParticipantPrizeResult(statistic.getParticipantPrize(person));
+        }
     }
 
     private void checkPrizeCountValidation(int participantCount, int prizeCount) {
