@@ -12,13 +12,13 @@ public class LadderTest {
         int lineHeight = 4;
         int ladderWidth = 4;
 
-        Assertions.assertThrows(RuntimeException.class, () -> {
+        Assertions.assertThrows(RuntimeException.class, () ->
             new Ladder(
                     lineHeight,
                     ladderWidth,
                     new MockRandomLadderGenerator.AbnormalLadderGenerator()
-            );
-        });
+            )
+        );
     }
 
     @Test
