@@ -37,9 +37,9 @@ public class Ladder {
         }
     }
 
-    private void checkRowValidation(int columnIndex, List<Line> lines) {
+    private void checkRowValidation(int rowIndex, List<Line> lines) {
         List<Direction> rowDirections = lines.stream()
-                .map(l -> l.getPoints().get(columnIndex))
+                .map(l -> l.getPoints().get(rowIndex))
                 .toList();
 
         int rowSize = rowDirections.size();
