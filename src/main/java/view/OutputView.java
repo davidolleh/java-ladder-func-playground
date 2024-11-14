@@ -73,7 +73,7 @@ public class OutputView {
 
     private void printPrizesResult(List<Prize> prizes) {
         for (Prize prize : prizes) {
-            String name = prize.costToString();
+            String name = changePrizeToString(prize);
             String blanks = " ".repeat(5 - name.length());
             System.out.print(blanks + name + " ");
         }
@@ -86,13 +86,22 @@ public class OutputView {
 
     public void printParticipantPrizeResult(Prize prize) {
         System.out.println("실행 결과");
-        System.out.println(prize.costToString() + "\n");
+        System.out.println(changePrizeToString(prize) + "\n");
     }
 
     public void printParticipantsPrizesResult(Map<Person, Prize> participantsPrizes, List<Person> participants) {
         System.out.println("실행 결과");
         for (Person participant : participants) {
-            System.out.println(participant.getName() + " : " + participantsPrizes.get(participant).costToString());
+            System.out.println(participant.getName() + " : " + changePrizeToString(participantsPrizes.get(participant)));
         }
+    }
+
+    private String changePrizeToString(Prize prize) {
+        int cost = prize.getCost();
+        if (cost == 0) {
+            return "꽝";
+        }
+
+        return String.valueOf(cost);
     }
 }

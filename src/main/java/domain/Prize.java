@@ -9,13 +9,9 @@ public class Prize {
         this.cost = cost;
     }
 
-    public String costToString() {
-        if (cost ==0)
-            return "꽝";
-
-        return String.valueOf(cost);
+    public int getCost() {
+        return cost;
     }
-
 
     @Override
     public boolean equals(Object o) {
