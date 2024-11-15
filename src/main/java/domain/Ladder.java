@@ -4,37 +4,29 @@ import java.util.List;
 
 public class Ladder {
     private final List<Line> lines;
-    private final int ladderWidth;
-    private final int lineHeight;
-    private final RandomLadderGenerator randomLadderGenerator;
 
-
-    public Ladder(int lineHeight, int ladderWidth, RandomLadderGenerator randomLadderGenerator) {
-        this.randomLadderGenerator = randomLadderGenerator;
-        this.ladderWidth = ladderWidth;
-        this.lineHeight = lineHeight;
-
-        List<Line> lines = this.randomLadderGenerator.generateLadder(lineHeight, ladderWidth);
+    public Ladder(List<Line> lines) {
         checkLadderValidation(lines);
         this.lines = lines;
+
     }
 
     public List<Line> getLines() {
         return lines;
     }
 
-    public int getLadderWidth() {
-        return ladderWidth;
-    }
-
-    public int getLineHeight() {
-        return lineHeight;
-    }
 
     private void checkLadderValidation(List<Line> lines) {
+        // TODO:: 정리하기
+        int lineHeight = lines.get(0).getPoints().size();
+
         for (int i = 0; i < lineHeight; i++) {
             checkRowValidation(i, lines);
         }
+    }
+
+    private int getLadderHeight() {
+        return lines.size();
     }
 
     private void checkRowValidation(int rowIndex, List<Line> lines) {

@@ -22,7 +22,9 @@ public class LadderGameController {
 
         int height = readLadderHeight();
 
-        Ladder ladder = new Ladder(height, participants.size(), new RandomLadderGeneratorImpl());
+
+        LadderFactory ladderGenerator = new LadderFactory(height, participants.size()); //ladderFactory
+        Ladder ladder = ladderGenerator.newInstance();
 
         outputView.printResult(participants, ladder, prizes);
 
@@ -66,7 +68,7 @@ public class LadderGameController {
     }
 
     private void printSpecificParticipantResult(Statistic statistic, List<Person> participants) {
-        while(true) {
+        while (true) {
             String name = readParticipantName();
 
             if (name.equals("all")) {

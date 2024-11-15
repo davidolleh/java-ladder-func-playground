@@ -12,4 +12,8 @@ public class Line {
     public List<Direction> getPoints() {
         return points;
     }
+
+    public int getLineHeight() {
+        return points.size();
+    }
 }

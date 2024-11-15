@@ -5,18 +5,25 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
-public class RandomLadderGeneratorImpl implements RandomLadderGenerator {
+public class LadderFactory {
     private final ThreadLocalRandom random = ThreadLocalRandom.current();
     private static final int RANDOM_BOUND = 10;
 
-    public List<Line> generateLadder(int lineHeight, int ladderWidth) {
-        List<List<Connection>> columnRowConnections = generateLadderConnection(lineHeight, ladderWidth);
+    private final int lineHeight;
+    private final int ladderWidth;
 
-        return IntStream.range(0, ladderWidth)
-                .mapToObj(i -> generateLineByConnections(i, lineHeight, ladderWidth, columnRowConnections))
-                .toList();
+    public LadderFactory(int height, int width) {
+        this.lineHeight = height;
+        this.ladderWidth = width;
     }
 
+    public Ladder newInstance() {
+        List<List<Connection>> columnRowConnections = generateLadderConnection(lineHeight, ladderWidth);
+
+        return new Ladder(IntStream.range(0, ladderWidth)
+                .mapToObj(i -> generateLineByConnections(i, lineHeight, ladderWidth, columnRowConnections))
+                .toList());
+    }
 
     private List<List<Connection>> generateLadderConnection(int lineHeight, int ladderWidth) {
         List<List<Connection>> rowColumnConnections = new ArrayList<>();
@@ -61,7 +68,7 @@ public class RandomLadderGeneratorImpl implements RandomLadderGenerator {
             return generateFirstLine(lineRightConnections);
         }
 
-        if (lineIndex == ladderWidth -1) {
+        if (lineIndex == ladderWidth - 1) {
             List<Connection> lineLeftConnections = columnRowConnections.get(lineIndex - 1);
             return generateLastLine(lineLeftConnections);
         }
