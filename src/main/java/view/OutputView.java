@@ -44,20 +44,20 @@ public class OutputView {
     }
 
     private void printLadderResult(Ladder ladder) {
-        List<Line> lines = ladder.getLines();
+        List<ColumnLine> columnLines = ladder.getLines();
         int ladderWidth = ladder.getLadderWidth();
         int lineHeight = ladder.getLineHeight();
 
         for (int i = 0; i < lineHeight; i++) {
             System.out.print("    ");
-            printLadderRowResult(lines, ladderWidth, i);
+            printLadderRowResult(columnLines, ladderWidth, i);
             System.out.println();
         }
     }
 
-    private void printLadderRowResult(List<Line> lines, int ladderWidth, int columnIndex) {
+    private void printLadderRowResult(List<ColumnLine> columnLines, int ladderWidth, int columnIndex) {
         for (int j = 0; j < ladderWidth; j++) {
-            Direction direction = lines.get(j).getPoints().get(columnIndex);
+            Direction direction = columnLines.get(j).getPoints().get(columnIndex);
             printByDirection(direction);
         }
     }

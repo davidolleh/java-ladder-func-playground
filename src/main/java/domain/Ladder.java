@@ -3,34 +3,33 @@ package domain;
 import java.util.List;
 
 public class Ladder {
-    private final List<Line> lines;
+    private final List<ColumnLine> columnLines;
 
-    public Ladder(List<Line> lines) {
-        checkLadderValidation(lines);
-        this.lines = lines;
-
+    public Ladder(List<ColumnLine> columnLines) {
+        checkLadderValidation(columnLines);
+        this.columnLines = columnLines;
     }
 
-    public List<Line> getLines() {
-        return lines;
+    public List<ColumnLine> getLines() {
+        return columnLines;
     }
 
 
-    private void checkLadderValidation(List<Line> lines) {
+    private void checkLadderValidation(List<ColumnLine> columnLines) {
         // TODO:: 정리하기
-        int lineHeight = lines.get(0).getPoints().size();
+        int lineHeight = columnLines.get(0).getPoints().size();
 
         for (int i = 0; i < lineHeight; i++) {
-            checkRowValidation(i, lines);
+            checkRowValidation(i, columnLines);
         }
     }
 
     private int getLadderHeight() {
-        return lines.size();
+        return columnLines.size();
     }
 
-    private void checkRowValidation(int rowIndex, List<Line> lines) {
-        List<Direction> rowDirections = lines.stream()
+    private void checkRowValidation(int rowIndex, List<ColumnLine> columnLines) {
+        List<Direction> rowDirections = columnLines.stream()
                 .map(l -> l.getPoints().get(rowIndex))
                 .toList();
 

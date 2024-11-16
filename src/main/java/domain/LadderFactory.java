@@ -62,7 +62,7 @@ public class LadderFactory {
         return Connection.UNCONNECTED;
     }
 
-    private Line generateLineByConnections(int lineIndex, int lineHeight, int ladderWidth, List<List<Connection>> columnRowConnections) {
+    private ColumnLine generateLineByConnections(int lineIndex, int lineHeight, int ladderWidth, List<List<Connection>> columnRowConnections) {
         if (lineIndex == 0) {
             List<Connection> lineRightConnections = columnRowConnections.get(0);
             return generateFirstLine(lineRightConnections);
@@ -79,7 +79,7 @@ public class LadderFactory {
         return generateMiddlesLine(lineHeight, lineLeftConnections, lineRightConnections);
     }
 
-    private Line generateFirstLine(List<Connection> lineRightConnections) {
+    private ColumnLine generateFirstLine(List<Connection> lineRightConnections) {
         List<Direction> lineDirections = lineRightConnections.stream()
                 .map(c -> {
                     if (c == Connection.CONNECTED)
@@ -88,10 +88,10 @@ public class LadderFactory {
                 })
                 .toList();
 
-        return new Line(lineDirections);
+        return new ColumnLine(lineDirections);
     }
 
-    private Line generateLastLine(List<Connection> lineLeftConnections) {
+    private ColumnLine generateLastLine(List<Connection> lineLeftConnections) {
         List<Direction> lineDirections = lineLeftConnections.stream()
                 .map(c -> {
                     if (c == Connection.CONNECTED)
@@ -100,10 +100,10 @@ public class LadderFactory {
                 })
                 .toList();
 
-        return new Line(lineDirections);
+        return new ColumnLine(lineDirections);
     }
 
-    private Line generateMiddlesLine(int lineHeight, List<Connection> lineLeftConnections, List<Connection> lineRightConnections) {
+    private ColumnLine generateMiddlesLine(int lineHeight, List<Connection> lineLeftConnections, List<Connection> lineRightConnections) {
         List<Direction> lineDirections = new ArrayList<>();
 
         for (int j = 0; j < lineHeight; j++) {
@@ -119,7 +119,7 @@ public class LadderFactory {
 
             lineDirections.add(Direction.RIGHT);
         }
-        return new Line(lineDirections);
+        return new ColumnLine(lineDirections);
     }
 
     private List<List<Connection>> rotate2DConnection(int rowSize, List<List<Connection>> rowColumnConnections) {

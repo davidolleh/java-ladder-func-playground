@@ -2,10 +2,10 @@ package domain;
 
 import java.util.List;
 
-public class Line {
+public class ColumnLine {
     private final List<Direction> points;
 
-    public Line(List<Direction> points) {
+    public ColumnLine(List<Direction> points) {
         this.points = points;
     }
 
