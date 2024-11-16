@@ -13,7 +13,7 @@ public class ColumnLine {
         return points;
     }
 
-    public int getLineHeight() {
-        return points.size();
+    public Direction getRowDirection(int row) {
+        return points.get(row);
     }
 }

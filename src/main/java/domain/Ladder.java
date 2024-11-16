@@ -20,19 +20,16 @@ public class Ladder {
         int lineHeight = columnLines.get(0).getPoints().size();
 
         for (int i = 0; i < lineHeight; i++) {
-            checkRowValidation(i, columnLines);
+            int columnIndex = i;
+            List<Direction> rowDirections = columnLines.stream()
+                    .map(l -> l.getRowDirection(columnIndex))
+                    .toList();
+
+            checkRowValidation(rowDirections);
         }
     }
 
-    private int getLadderHeight() {
-        return columnLines.size();
-    }
-
-    private void checkRowValidation(int rowIndex, List<ColumnLine> columnLines) {
-        List<Direction> rowDirections = columnLines.stream()
-                .map(l -> l.getPoints().get(rowIndex))
-                .toList();
-
+    private void checkRowValidation(List<Direction> rowDirections) {
         int rowSize = rowDirections.size();
         int rightCount = 0;
 
