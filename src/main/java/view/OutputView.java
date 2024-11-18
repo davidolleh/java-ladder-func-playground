@@ -3,7 +3,6 @@ package view;
 import domain.*;
 
 import java.util.List;
-import java.util.Map;
 
 public class OutputView {
     public void printEmptyLine() {
@@ -22,10 +21,10 @@ public class OutputView {
         System.out.println("최대 사다리 높이는 몇 개인가요?");
     }
 
-    public void printResult(List<Person> participants, Ladder ladder, List<Prize> prizes) {
+    public void printResult(Participants participants, Ladder ladder, List<Prize> prizes) {
         System.out.println("사다리 결과\n");
 
-        printParticipantsResult(participants);
+        printParticipantsResult(participants.getParticipants());
 
         printLadderResult(ladder);
 
@@ -34,9 +33,9 @@ public class OutputView {
         printEmptyLine();
     }
 
-    private void printParticipantsResult(List<Person> participants) {
-        for (Person participant : participants) {
-            String name = participant.getName();
+    private void printParticipantsResult(List<Participant> participants) {
+        for (Participant participant : participants) {
+            String name = participant.getParticipantName();
             String blanks = " ".repeat(5 - name.length());
             System.out.print(blanks + name + " ");
         }
@@ -86,10 +85,12 @@ public class OutputView {
         System.out.println(changePrizeToString(prize) + "\n");
     }
 
-    public void printParticipantsPrizesResult(Map<Person, Prize> participantsPrizes, List<Person> participants) {
+    public void printParticipantsPrizesResult(Participants participants, GameResult gameResult) {
         System.out.println("실행 결과");
-        for (Person participant : participants) {
-            System.out.println(participant.getName() + " : " + changePrizeToString(participantsPrizes.get(participant)));
+        for (Participant participant : participants.getParticipants()) {
+            String name = participant.getParticipantName();
+            Prize prize = gameResult.getPrize(participant);
+            System.out.println(name + " : " + changePrizeToString(prize));
         }
     }
 

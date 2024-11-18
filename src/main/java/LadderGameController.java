@@ -15,24 +15,29 @@ public class LadderGameController {
     }
 
     public void ladderGame() {
-        List<Person> participants = readParticipants();
+        List<Person> people = readParticipants();
         List<Prize> prizes = readPrizes();
 
-        checkPrizeCountValidation(participants.size(), prizes.size());
+        valdiateInputsCount(people.size(), prizes.size());
 
         int height = readLadderHeight();
+        int width = people.size();
 
-
-        LadderFactory ladderGenerator = new LadderFactory(height, participants.size()); //ladderFactory
+        LadderFactory ladderGenerator = new LadderFactory(height, width);
         Ladder ladder = ladderGenerator.newInstance();
 
-        outputView.printResult(participants, ladder, prizes);
+        Participants participants = Participants.fromPeople(people);
+        LadderGame ladderGame = new LadderGame(participants, ladder, prizes);
 
-        Statistic statistic = new Statistic(ladder, participants, prizes);
+        outputView.printResult(ladderGame.getParticipants(), ladderGame.getLadder(), ladderGame.getPrizes());
 
-        printSpecificParticipantResult(statistic, participants);
+        ladderGame.start();
 
-        outputView.printParticipantsPrizesResult(statistic.getParticipantPrize(), participants);
+        GameResult gameResult = ladderGame.getParticipantsPrizes();
+
+        printSpecificParticipantResult(ladderGame.getParticipants(), gameResult);
+
+        outputView.printParticipantsPrizesResult(ladderGame.getParticipants(), gameResult);
     }
 
     private List<Person> readParticipants() {
@@ -67,7 +72,7 @@ public class LadderGameController {
         return name;
     }
 
-    private void printSpecificParticipantResult(Statistic statistic, List<Person> participants) {
+    private void printSpecificParticipantResult(Participants participants, GameResult gameResult) {
         while (true) {
             String name = readParticipantName();
 
@@ -76,20 +81,14 @@ public class LadderGameController {
             }
 
             Person person = new Person(name);
-            checkParticipantValidation(participants, person);
-            outputView.printParticipantPrizeResult(statistic.getParticipantPrize(person));
+            Participant participant = participants.getParticipantByName(person);
+            outputView.printParticipantPrizeResult(gameResult.getPrize(participant));
         }
     }
 
-    private void checkPrizeCountValidation(int participantCount, int prizeCount) {
+    private void valdiateInputsCount(int participantCount, int prizeCount) {
         if (participantCount != prizeCount) {
             throw new IllegalArgumentException("The number of participants does not match the number of prizes.");
-        }
-    }
-
-    private void checkParticipantValidation(List<Person> participants, Person person) {
-        if (!participants.contains(person)) {
-            throw new IllegalArgumentException("참여자가 아닙니다.");
         }
     }
 }
