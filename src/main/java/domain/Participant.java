@@ -20,7 +20,7 @@ public class Participant {
     }
 
     public String getParticipantName() {
-        return person.getName();
+        return person.name();
     }
 
     public int getPosition() {
@@ -32,11 +32,11 @@ public class Participant {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Participant that = (Participant) o;
-        return Objects.equals(person.getName(), that.person.getName());
+        return Objects.equals(person.name(), that.person.name());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(person.getName());
+        return Objects.hashCode(person.name());
     }
 }

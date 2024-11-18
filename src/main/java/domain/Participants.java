@@ -41,7 +41,7 @@ public class Participants {
 
     public Participant getParticipantByName(Person person) {
         return participants.stream()
-                .filter(participant -> participant.getParticipantName().equals(person.getName()))
+                .filter(participant -> participant.getParticipantName().equals(person.name()))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
     }
@@ -54,6 +54,6 @@ public class Participants {
         return participants.stream()
                 .map(Participant::getParticipantName)
                 .toList()
-                .contains(person.getName());
+                .contains(person.name());
     }
 }
