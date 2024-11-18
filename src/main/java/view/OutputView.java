@@ -53,7 +53,7 @@ public class OutputView {
     }
 
     private void printLadderRowResult(RowLine rowLine) {
-        for (Direction direction : rowLine.getPoints()) {
+        for (Direction direction : rowLine.points()) {
             printByDirection(direction);
         }
     }

@@ -2,12 +2,9 @@ package domain;
 
 import java.util.List;
 
-public class RowLine {
-    private final List<Direction> points;
-
-    public RowLine(List<Direction> points) {
+public record RowLine(List<Direction> points) {
+    public RowLine {
         validateRowLine(points);
-        this.points = points;
     }
 
     private void validateRowLine(List<Direction> rowDirections) {
@@ -41,9 +38,5 @@ public class RowLine {
 
     public Direction getPositionDirection(int positionIndex) {
         return points.get(positionIndex);
-    }
-
-    public List<Direction> getPoints() {
-        return points;
     }
 }
