@@ -10,10 +10,6 @@ public class RowLine {
         this.points = points;
     }
 
-    public List<Direction> getPoints() {
-        return points;
-    }
-
     private void validateRowLine(List<Direction> rowDirections) {
         int rowSize = rowDirections.size();
         int rightCount = 0;
@@ -41,5 +37,13 @@ public class RowLine {
         if (rightCount == 0) {
             throw new RuntimeException("사다리가 잘못 만들어졌습니다.");
         }
+    }
+
+    public Direction getPositionDirection(int positionIndex) {
+        return points.get(positionIndex);
+    }
+
+    public List<Direction> getPoints() {
+        return points;
     }
 }
