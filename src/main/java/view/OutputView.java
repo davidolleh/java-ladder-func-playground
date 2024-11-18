@@ -24,7 +24,7 @@ public class OutputView {
     public void printResult(Participants participants, Ladder ladder, List<Prize> prizes) {
         System.out.println("사다리 결과\n");
 
-        printParticipantsResult(participants.getParticipants());
+        printParticipantsResult(participants.participants());
 
         printLadderResult(ladder);
 
@@ -87,7 +87,7 @@ public class OutputView {
 
     public void printParticipantsPrizesResult(Participants participants, GameResult gameResult) {
         System.out.println("실행 결과");
-        for (Participant participant : participants.getParticipants()) {
+        for (Participant participant : participants.participants()) {
             String name = participant.getParticipantName();
             Prize prize = gameResult.getPrize(participant);
             System.out.println(name + " : " + changePrizeToString(prize));

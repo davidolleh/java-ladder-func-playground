@@ -42,7 +42,8 @@ public class LadderGame {
         List<Integer> participantPositions = new ArrayList<>();
 
         for (RowLine rowLine : ladder.getLines()) {
-            Direction direction = rowLine.getPositionDirection(participant.getPosition());
+            int currentPosition = participant.getPosition();
+            Direction direction = rowLine.getPositionDirection(currentPosition);
 
             participant.move(direction);
 

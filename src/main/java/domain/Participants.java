@@ -4,12 +4,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-public class Participants {
-    private final List<Participant> participants;
-
-    public Participants(List<Participant> participants) {
+public record Participants(List<Participant> participants) {
+    public Participants {
         validateParticipants(participants);
-        this.participants = participants;
     }
 
     public static Participants fromPeople(List<Person> people) {
@@ -44,16 +41,5 @@ public class Participants {
                 .filter(participant -> participant.getParticipantName().equals(person.name()))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
-    }
-
-    public List<Participant> getParticipants() {
-        return participants;
-    }
-
-    public boolean containsPerson(Person person) {
-        return participants.stream()
-                .map(Participant::getParticipantName)
-                .toList()
-                .contains(person.name());
     }
 }

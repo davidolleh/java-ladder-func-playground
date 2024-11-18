@@ -15,10 +15,6 @@ public class Participant {
         position = position + direction.offset;
     }
 
-    public Person getPerson() {
-        return person;
-    }
-
     public String getParticipantName() {
         return person.name();
     }
