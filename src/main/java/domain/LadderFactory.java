@@ -20,9 +20,11 @@ public class LadderFactory {
     public Ladder newInstance() {
         List<List<Connection>> columnRowConnections = generateLadderConnection(lineHeight, ladderWidth);
 
-        return new Ladder(IntStream.range(0, ladderWidth)
-                .mapToObj(i -> generateLineByConnections(i, lineHeight, ladderWidth, columnRowConnections))
-                .toList());
+        List<RowLine> rowLines = IntStream.range(0, lineHeight)
+                .mapToObj(i -> generateRowLineByConnections(columnRowConnections.get(i)))
+                .toList();
+
+        return new Ladder(rowLines);
     }
 
     private List<List<Connection>> generateLadderConnection(int lineHeight, int ladderWidth) {
@@ -33,10 +35,7 @@ public class LadderFactory {
             rowColumnConnections.add(rowConnections);
         }
 
-        int ladderConnectionWidth = ladderWidth - 1;
-
-
-        return rotate2DConnection(ladderConnectionWidth, rowColumnConnections);
+        return rowColumnConnections;
     }
 
     private List<Connection> generateRowConnections(int ladderWidth) {
@@ -62,79 +61,52 @@ public class LadderFactory {
         return Connection.UNCONNECTED;
     }
 
-    private ColumnLine generateLineByConnections(int lineIndex, int lineHeight, int ladderWidth, List<List<Connection>> columnRowConnections) {
-        if (lineIndex == 0) {
-            List<Connection> lineRightConnections = columnRowConnections.get(0);
-            return generateFirstLine(lineRightConnections);
-        }
+    private RowLine generateRowLineByConnections(List<Connection> rowConnections) {
+        List<Direction> directions = new ArrayList<>();
 
-        if (lineIndex == ladderWidth - 1) {
-            List<Connection> lineLeftConnections = columnRowConnections.get(lineIndex - 1);
-            return generateLastLine(lineLeftConnections);
-        }
-
-        List<Connection> lineLeftConnections = columnRowConnections.get(lineIndex - 1);
-        List<Connection> lineRightConnections = columnRowConnections.get(lineIndex);
-
-        return generateMiddlesLine(lineHeight, lineLeftConnections, lineRightConnections);
-    }
-
-    private ColumnLine generateFirstLine(List<Connection> lineRightConnections) {
-        List<Direction> lineDirections = lineRightConnections.stream()
-                .map(c -> {
-                    if (c == Connection.CONNECTED)
-                        return Direction.RIGHT;
-                    return Direction.DOWN;
-                })
-                .toList();
-
-        return new ColumnLine(lineDirections);
-    }
-
-    private ColumnLine generateLastLine(List<Connection> lineLeftConnections) {
-        List<Direction> lineDirections = lineLeftConnections.stream()
-                .map(c -> {
-                    if (c == Connection.CONNECTED)
-                        return Direction.LEFT;
-                    return Direction.DOWN;
-                })
-                .toList();
-
-        return new ColumnLine(lineDirections);
-    }
-
-    private ColumnLine generateMiddlesLine(int lineHeight, List<Connection> lineLeftConnections, List<Connection> lineRightConnections) {
-        List<Direction> lineDirections = new ArrayList<>();
-
-        for (int j = 0; j < lineHeight; j++) {
-            if (lineLeftConnections.get(j) == Connection.UNCONNECTED && lineRightConnections.get(j) == Connection.UNCONNECTED) {
-                lineDirections.add(Direction.DOWN);
+        for (int i = 0; i < ladderWidth; i++) {
+            if (i == 0) {
+                Direction direction = getFirstLineDirection(rowConnections.get(i));
+                directions.add(direction);
                 continue;
             }
 
-            if (lineLeftConnections.get(j) == Connection.CONNECTED) {
-                lineDirections.add(Direction.LEFT);
+            if (i == ladderWidth - 1) {
+                Direction direction = getLastLineDirection(rowConnections.get(i - 1));
+                directions.add(direction);
                 continue;
             }
 
-            lineDirections.add(Direction.RIGHT);
-        }
-        return new ColumnLine(lineDirections);
-    }
-
-    private List<List<Connection>> rotate2DConnection(int rowSize, List<List<Connection>> rowColumnConnections) {
-        List<List<Connection>> columnRowConnections = new ArrayList<>();
-        for (int j = 0; j < rowSize; j++) {
-            List<Connection> columnConnections = getColumnConnections(j, rowColumnConnections);
-            columnRowConnections.add(columnConnections);
+            Direction direction = getMiddleLineDirection(rowConnections.get(i - 1), rowConnections.get(i));
+            directions.add(direction);
         }
 
-        return columnRowConnections;
+        return new RowLine(directions);
     }
 
-    private List<Connection> getColumnConnections(int columnIndex, List<List<Connection>> ladderConnection) {
-        return ladderConnection.stream()
-                .map(l -> l.get(columnIndex))
-                .toList();
+    private Direction getFirstLineDirection(Connection connection) {
+        if (connection == Connection.CONNECTED) {
+            return Direction.RIGHT;
+        }
+        return Direction.DOWN;
+    }
+
+    private Direction getLastLineDirection(Connection connection) {
+        if (connection == Connection.CONNECTED) {
+            return Direction.LEFT;
+        }
+        return Direction.DOWN;
+    }
+
+    private Direction getMiddleLineDirection(Connection currentConnection, Connection nextConnection) {
+        if (currentConnection == Connection.CONNECTED) {
+            return Direction.LEFT;
+        }
+
+        if (nextConnection == Connection.CONNECTED) {
+            return Direction.RIGHT;
+        }
+
+        return Direction.DOWN;
     }
 }
