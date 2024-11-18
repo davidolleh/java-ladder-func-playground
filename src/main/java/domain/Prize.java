@@ -1,17 +1,6 @@
 package domain;
 
-import java.util.Objects;
-
-public class Prize {
-    private final int cost;
-
-    public Prize(int cost) {
-        this.cost = cost;
-    }
-
-    public int getCost() {
-        return cost;
-    }
+public record Prize(int cost) {
 
     @Override
     public boolean equals(Object o) {
@@ -19,10 +8,5 @@ public class Prize {
         if (o == null || getClass() != o.getClass()) return false;
         Prize prize = (Prize) o;
         return cost == prize.cost;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(cost);
     }
 }

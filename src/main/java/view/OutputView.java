@@ -95,7 +95,7 @@ public class OutputView {
     }
 
     private String changePrizeToString(Prize prize) {
-        int cost = prize.getCost();
+        int cost = prize.cost();
         if (cost == 0) {
             return "꽝";
         }
