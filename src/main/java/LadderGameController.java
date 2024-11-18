@@ -23,7 +23,7 @@ public class LadderGameController {
         int height = readLadderHeight();
         int width = people.size();
 
-        LadderFactory ladderGenerator = new LadderFactory(height, width);
+        LadderFactory ladderGenerator = new RandomLadderFactory(height, width);
         Ladder ladder = ladderGenerator.newInstance();
 
         Participants participants = Participants.fromPeople(people);
