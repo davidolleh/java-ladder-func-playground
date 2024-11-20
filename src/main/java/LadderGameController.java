@@ -18,7 +18,7 @@ public class LadderGameController {
         List<Person> people = readParticipants();
         List<Prize> prizes = readPrizes();
 
-        valdiateInputsCount(people.size(), prizes.size());
+        validateInputsCount(people.size(), prizes.size());
 
         int height = readLadderHeight();
         int width = people.size();
@@ -86,7 +86,7 @@ public class LadderGameController {
         }
     }
 
-    private void valdiateInputsCount(int participantCount, int prizeCount) {
+    private void validateInputsCount(int participantCount, int prizeCount) {
         if (participantCount != prizeCount) {
             throw new IllegalArgumentException("The number of participants does not match the number of prizes.");
         }
