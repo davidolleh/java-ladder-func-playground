@@ -6,7 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 public class RandomLadderFactory implements LadderFactory {
-    private final ThreadLocalRandom random = ThreadLocalRandom.current();
+    private static final ThreadLocalRandom random = ThreadLocalRandom.current();
     private static final int RANDOM_BOUND = 10;
 
     private final int lineHeight;
